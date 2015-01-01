@@ -1,12 +1,12 @@
 # finalproject
 
-<Sources>
+[Sources]
 We used three sources as follows:<br />
 "Crime Data 2001-"<br />
-     City of Chicago Data Portal<br /> (https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2/data)<br /
+     City of Chicago Data Portal<br /> (https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2/data)<br />
 ""
 
-<Clearing/Reducing Process of Data>
+[Clearing/Reducing Process of Data]
 You can find the script in finalproject-Ernesto-Juan-Hajime/static/dataclean.py.<br />
 <br />
 Chicago Crime Data was the most difficult one to process since it was the very
