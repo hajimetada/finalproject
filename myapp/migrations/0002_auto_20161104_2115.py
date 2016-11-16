@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.RenameField(
             model_name='input',
             old_name='r',
-            new_name='state',
+            new_name='neighborhood',
         ),
         migrations.AddField(
             model_name='input',

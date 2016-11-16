@@ -62,7 +62,7 @@
         };
         // Show counter by default
         $(options.counterContainer).show();
-        // Check state of checkboxes and reinit state if needed
+        // Check neighborhood of checkboxes and reinit neighborhood if needed
         $(this).filter(":checked").each(function(i) {
             $(this).parent().parent().toggleClass(options.selectedClass);
             updateCounter();

@@ -3188,7 +3188,7 @@ jQuery.Callbacks = function( options ) {
 			disabled: function() {
 				return !list;
 			},
-			// Lock the list in its current state
+			// Lock the list in its current neighborhood
 			lock: function() {
 				stack = undefined;
 				if ( !memory ) {
@@ -3232,15 +3232,15 @@ jQuery.extend({
 
 	Deferred: function( func ) {
 		var tuples = [
-				// action, add listener, listener list, final state
+				// action, add listener, listener list, final neighborhood
 				[ "resolve", "done", jQuery.Callbacks("once memory"), "resolved" ],
 				[ "reject", "fail", jQuery.Callbacks("once memory"), "rejected" ],
 				[ "notify", "progress", jQuery.Callbacks("memory") ]
 			],
-			state = "pending",
+			neighborhood = "pending",
 			promise = {
-				state: function() {
-					return state;
+				neighborhood: function() {
+					return neighborhood;
 				},
 				always: function() {
 					deferred.done( arguments ).fail( arguments );
@@ -3281,16 +3281,16 @@ jQuery.extend({
 		// Add list-specific methods
 		jQuery.each( tuples, function( i, tuple ) {
 			var list = tuple[ 2 ],
-				stateString = tuple[ 3 ];
+				neighborhoodString = tuple[ 3 ];
 
 			// promise[ done | fail | progress ] = list.add
 			promise[ tuple[1] ] = list.add;
 
-			// Handle state
-			if ( stateString ) {
+			// Handle neighborhood
+			if ( neighborhoodString ) {
 				list.add(function() {
-					// state = [ resolved | rejected ]
-					state = stateString;
+					// neighborhood = [ resolved | rejected ]
+					neighborhood = neighborhoodString;
 
 				// [ reject_list | resolve_list ].disable; progress_list.lock
 				}, tuples[ i ^ 1 ][ 2 ].disable, tuples[ 2 ][ 2 ].lock );
@@ -4032,7 +4032,7 @@ var rcheckableType = (/^(?:checkbox|radio)$/i);
 		input = document.createElement( "input" );
 
 	// Support: Safari<=5.1
-	// Check state lost if the name is set (#11217)
+	// Check neighborhood lost if the name is set (#11217)
 	// Support: Windows Web Apps (WWA)
 	// `name` and `type` must use .setAttribute for WWA (#14901)
 	input.setAttribute( "type", "radio" );
@@ -4042,7 +4042,7 @@ var rcheckableType = (/^(?:checkbox|radio)$/i);
 	div.appendChild( input );
 
 	// Support: Safari<=5.1, Android<4.2
-	// Older WebKit doesn't clone checked state correctly in fragments
+	// Older WebKit doesn't clone checked neighborhood correctly in fragments
 	support.checkClone = div.cloneNode( true ).cloneNode( true ).lastChild.checked;
 
 	// Support: IE<=11+
@@ -4609,7 +4609,7 @@ jQuery.event = {
 			delegateType: "focusout"
 		},
 		click: {
-			// For checkbox, fire native event so checked state will be right
+			// For checkbox, fire native event so checked neighborhood will be right
 			trigger: function() {
 				if ( this.type === "checkbox" && this.click && jQuery.nodeName( this, "input" ) ) {
 					this.click();
@@ -5029,11 +5029,11 @@ function getAll( context, tag ) {
 function fixInput( src, dest ) {
 	var nodeName = dest.nodeName.toLowerCase();
 
-	// Fails to persist the checked state of a cloned checkbox or radio button.
+	// Fails to persist the checked neighborhood of a cloned checkbox or radio button.
 	if ( nodeName === "input" && rcheckableType.test( src.type ) ) {
 		dest.checked = src.checked;
 
-	// Fails to return the selected option to the default selected state when cloning options
+	// Fails to return the selected option to the default selected neighborhood when cloning options
 	} else if ( nodeName === "input" || nodeName === "textarea" ) {
 		dest.defaultValue = src.defaultValue;
 	}
@@ -6138,9 +6138,9 @@ jQuery.fn.extend({
 	hide: function() {
 		return showHide( this );
 	},
-	toggle: function( state ) {
-		if ( typeof state === "boolean" ) {
-			return state ? this.show() : this.hide();
+	toggle: function( neighborhood ) {
+		if ( typeof neighborhood === "boolean" ) {
+			return neighborhood ? this.show() : this.hide();
 		}
 
 		return this.each(function() {
@@ -6461,7 +6461,7 @@ function defaultPrefilter( elem, props, opts ) {
 			dataShow = data_priv.access( elem, "fxshow", {} );
 		}
 
-		// Store state if its toggle - enables .stop().toggle() to "reverse"
+		// Store neighborhood if its toggle - enables .stop().toggle() to "reverse"
 		if ( toggle ) {
 			dataShow.hidden = !hidden;
 		}
@@ -7253,16 +7253,16 @@ jQuery.fn.extend({
 		return this;
 	},
 
-	toggleClass: function( value, stateVal ) {
+	toggleClass: function( value, neighborhoodVal ) {
 		var type = typeof value;
 
-		if ( typeof stateVal === "boolean" && type === "string" ) {
-			return stateVal ? this.addClass( value ) : this.removeClass( value );
+		if ( typeof neighborhoodVal === "boolean" && type === "string" ) {
+			return neighborhoodVal ? this.addClass( value ) : this.removeClass( value );
 		}
 
 		if ( jQuery.isFunction( value ) ) {
 			return this.each(function( i ) {
-				jQuery( this ).toggleClass( value.call(this, i, this.className, stateVal), stateVal );
+				jQuery( this ).toggleClass( value.call(this, i, this.className, neighborhoodVal), neighborhoodVal );
 			});
 		}
 
@@ -7798,7 +7798,7 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 						try {
 							response = conv( response );
 						} catch ( e ) {
-							return { state: "parsererror", error: conv ? e : "No conversion from " + prev + " to " + current };
+							return { neighborhood: "parsererror", error: conv ? e : "No conversion from " + prev + " to " + current };
 						}
 					}
 				}
@@ -7806,7 +7806,7 @@ function ajaxConvert( s, response, jqXHR, isSuccess ) {
 		}
 	}
 
-	return { state: "success", data: response };
+	return { neighborhood: "success", data: response };
 }
 
 jQuery.extend({
@@ -7943,8 +7943,8 @@ jQuery.extend({
 			// Headers (they are sent all at once)
 			requestHeaders = {},
 			requestHeadersNames = {},
-			// The jqXHR state
-			state = 0,
+			// The jqXHR neighborhood
+			neighborhood = 0,
 			// Default abort message
 			strAbort = "canceled",
 			// Fake xhr
@@ -7954,7 +7954,7 @@ jQuery.extend({
 				// Builds headers hashtable if needed
 				getResponseHeader: function( key ) {
 					var match;
-					if ( state === 2 ) {
+					if ( neighborhood === 2 ) {
 						if ( !responseHeaders ) {
 							responseHeaders = {};
 							while ( (match = rheaders.exec( responseHeadersString )) ) {
@@ -7968,13 +7968,13 @@ jQuery.extend({
 
 				// Raw string
 				getAllResponseHeaders: function() {
-					return state === 2 ? responseHeadersString : null;
+					return neighborhood === 2 ? responseHeadersString : null;
 				},
 
 				// Caches the header
 				setRequestHeader: function( name, value ) {
 					var lname = name.toLowerCase();
-					if ( !state ) {
+					if ( !neighborhood ) {
 						name = requestHeadersNames[ lname ] = requestHeadersNames[ lname ] || name;
 						requestHeaders[ name ] = value;
 					}
@@ -7983,7 +7983,7 @@ jQuery.extend({
 
 				// Overrides response content-type header
 				overrideMimeType: function( type ) {
-					if ( !state ) {
+					if ( !neighborhood ) {
 						s.mimeType = type;
 					}
 					return this;
@@ -7993,7 +7993,7 @@ jQuery.extend({
 				statusCode: function( map ) {
 					var code;
 					if ( map ) {
-						if ( state < 2 ) {
+						if ( neighborhood < 2 ) {
 							for ( code in map ) {
 								// Lazy-add the new callback in a way that preserves old ones
 								statusCode[ code ] = [ statusCode[ code ], map[ code ] ];
@@ -8054,7 +8054,7 @@ jQuery.extend({
 		inspectPrefiltersOrTransports( prefilters, s, options, jqXHR );
 
 		// If request was aborted inside a prefilter, stop there
-		if ( state === 2 ) {
+		if ( neighborhood === 2 ) {
 			return jqXHR;
 		}
 
@@ -8128,7 +8128,7 @@ jQuery.extend({
 		}
 
 		// Allow custom headers/mimetypes and early abort
-		if ( s.beforeSend && ( s.beforeSend.call( callbackContext, jqXHR, s ) === false || state === 2 ) ) {
+		if ( s.beforeSend && ( s.beforeSend.call( callbackContext, jqXHR, s ) === false || neighborhood === 2 ) ) {
 			// Abort if not done already and return
 			return jqXHR.abort();
 		}
@@ -8162,11 +8162,11 @@ jQuery.extend({
 			}
 
 			try {
-				state = 1;
+				neighborhood = 1;
 				transport.send( requestHeaders, done );
 			} catch ( e ) {
 				// Propagate exception as error if not done
-				if ( state < 2 ) {
+				if ( neighborhood < 2 ) {
 					done( -1, e );
 				// Simply rethrow otherwise
 				} else {
@@ -8181,12 +8181,12 @@ jQuery.extend({
 				statusText = nativeStatusText;
 
 			// Called once
-			if ( state === 2 ) {
+			if ( neighborhood === 2 ) {
 				return;
 			}
 
 			// State is "done" now
-			state = 2;
+			neighborhood = 2;
 
 			// Clear timeout if it exists
 			if ( timeoutTimer ) {
@@ -8239,7 +8239,7 @@ jQuery.extend({
 
 				// If we have data, let's convert it
 				} else {
-					statusText = response.state;
+					statusText = response.neighborhood;
 					success = response.data;
 					error = response.error;
 					isSuccess = !error;
