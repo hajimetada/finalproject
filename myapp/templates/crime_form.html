@@ -1,8 +1,15 @@
+ <!--present for Juan starts here-->
+{% extends "base.html" %}
+
+{% block class1 %}class="active"{% endblock %}
+ <!--present for Juan ends here-->
+
+
 {% if state %}
     I hear you, {{ state }}!!
 {% endif %}
 
-<form action="{{ form_action }}" 
+<form action="{{ form_action }}"
       method="{{ form_method }}">
   {% if form_method == "post" %}
     {% csrf_token %}

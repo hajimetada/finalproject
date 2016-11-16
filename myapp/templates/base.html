@@ -1,6 +1,49 @@
 {% load staticfiles %}
 
 <!DOCTYPE html>
+
+ <!--present for Juan starts here-->
+ <style>
+ ul.nav {
+   list-style-type: none;
+   margin: 0px;
+   padding: 0px;
+   overflow: auto;
+   background-color: lightblue;
+ }
+
+ ul.nav li { float: left;}
+
+ ul.nav li a {
+   display: inline-block;
+   color: white;
+   padding: 16px 20px;
+   text-decoration: none;
+   font-size: 16px;
+ }
+
+ ul.nav li a.active {
+   color: lightblue;
+   background-color: #EEE;
+   font-weight: bold;
+ }
+
+ ul.nav li:hover {
+   background-color: #555;
+   transition: 0.5s;
+ }
+ </style>
+
+<header>
+<ul class="nav">
+  <li><a href="URL of crime page in urls.py" {% block class1 %}{% endblock %}>Hidden History</a></li>
+  <li><a href="URL of education page in urls.py" {% block class2 %}{% endblock %}>Legendarily Generous Donator</a></li>
+  <li><a href="URL of otherstuff page in urls.py" {% block class3 %}{% endblock %}>Mysterious Decision</a></li>
+</ul>
+</header>
+ <!--present for Juan ends here-->
+
+
 <html lang="en">
 <head>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:600,500,400,300,200,100,400italic0&subset=latin,greek,latin-ext' rel='stylesheet' type='text/css'>
@@ -56,5 +99,3 @@
 
 </body>
 </html>
-
-
