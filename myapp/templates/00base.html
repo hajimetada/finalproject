@@ -1,0 +1,78 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+
+<html>
+
+<style>
+* { font-family: 'Times New Roman' }
+body {margin: 5% 5%;}
+ul.nav {
+  list-style-type: none;
+  margin: 5px;
+  padding: 0px;
+  overflow: auto;;
+  background-color: black;
+}
+ul.nav li { float: left;align-content: center;animation-fill-mode: backwards;;; }
+ul.nav li a {
+  display:inline-flex;;
+  color: white;
+  padding: 5px 50px;
+  text-decoration: none;
+  font-size: 16px;
+}
+ul.nav li a.active {
+  color: black;
+  background-color: lightgrey;
+  font-weight: bold;
+}
+ul.nav li:hover {
+  background-color: white;
+  transition: 0.5s;
+}
+img {
+  border: 2px;
+  border-style: solid;
+  border-color: black;
+  margin: 20px 0px;
+}
+table {
+  align: center;
+  border-width: 5px 0px;
+  border-style: solid;
+  border-color: darkblue;
+  background: #FFF;
+  padding: 0px;
+  border-spacing: 0px;
+}
+th {
+  color: white;
+  background-color: darkblue;
+}
+th, td {
+  text-align: left;
+  padding: 3px 15px;
+}
+h1 {
+  color: black;
+}
+</style>
+
+<head>
+  <title>Chicago</title>
+
+  <img src="http://www.tierpoint.com/files/6414/5443/3317/Header_location_interior_DC.jpg" width="97%" align="center">
+
+  <ul class="nav">
+    <li><a href="http://127.0.0.1:8000/myapp/" {% block class1 %}{% endblock %}>Home</a></li>
+    <li><a href="http://127.0.0.1:8000/myapp/form/" {% block class2 %}{% endblock %}>Communityarea Checker</a></li>
+    <li><a href="file:///Users/Juan/Desktop/Prog/Project/Choosing_Chicago.html">Choosing Chicago</a></li>
+  </ul>
+</head>
+
+<body>
+
+{% block content %}{% endblock %}
+
+</body>
+</html>

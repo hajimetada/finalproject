@@ -1,0 +1,35 @@
+{% extends "00base.html" %}
+
+{% block class2 %}class="active"{% endblock %}
+
+{% block content %}
+  {% if communityarea %}
+      Choose your community area!
+  {% endif %}
+  {% if  not communityarea %}
+      Here is the some useful information you might need!
+      <p>
+      Want to know about another community area? <a href="http://127.0.0.1:8000/myapp/form/">Search again.</a>
+      <p>
+      { table_crime|safe }
+      <p>
+      { table_educ|safe }
+      <p>
+      { graph_educ|safe }
+  {% endif %}
+
+  <form action="{{ form_action }}"
+        method="{{ form_method }}">
+  {% if form_method == "post" %}
+       {% csrf_token %}
+  {% endif %}
+
+  {{ form.as_p }}
+  </form>
+
+  {% if communityarea %}
+      Don't know which community area you are looking for?
+      <a href=https://en.wikipedia.org/wiki/Community_areas_in_Chicago>Look for</a> community area by neighborhood!
+  {% endif %}
+
+{% endblock %}

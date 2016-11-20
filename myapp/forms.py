@@ -1,12 +1,12 @@
 from django import forms
-from .models import Input, COMMUNITYAREAS
+from .models import Input, COMMUNITYAREA
 
 class InputForm(forms.ModelForm):
 
     attrs = {'class ' : 'form−control ',
              'onchange ' : 'this.form.submit() '}
 
-    communityarea = forms.ChoiceField(choices=COMMUNITYAREAS, required=True,
+    communityarea = forms.ChoiceField(choices=COMMUNITYAREA, required=True,
                               widget=forms.Select(attrs = attrs))
     class Meta:
 
