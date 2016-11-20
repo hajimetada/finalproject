@@ -6,6 +6,6 @@ app_name = 'myapp'
 urlpatterns = [
 
     url(r'^$', views.form, name='form'),
-    url(r'^(?P<neighborhood>[A-Za-z\- ]+)/$', views.table_and_graph, name="table_and_graph"),
-    url(r'^pic/(?P<neighborhood>[A-Za-z\- ]+)/$', views.pib, name="pic")
+    url(r'^(?P<communityarea>[A-Za-z\- ]+)/$', views.table_and_graph, name="table_and_graph"),
+    url(r'^pic/(?P<communityarea>[A-Za-z\- ]+)/$', views.pib, name="pic")
 ]

@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
         migrations.RenameField(
             model_name='input',
             old_name='r',
-            new_name='neighborhood',
+            new_name='communityarea',
         ),
         migrations.AddField(
             model_name='input',

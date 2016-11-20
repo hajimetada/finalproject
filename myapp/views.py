@@ -4,20 +4,20 @@ from django.core.urlresolvers import reverse_lazy
 
 
 from .forms import InputForm
-from .models import NEIGHBORHOOD_DICT
-# select neighborhood and redirect to table_and_graph_function
+from .models import COMMUNITYAREA_DICT
+# select communityarea and redirect to table_and_graph_function
 def form(request):
 
-    neighborhood = request.POST.get('neighborhood', '')
-    if not yvar: yvar = request.GET.get('neighborhood', 'F')
+    communityarea = request.POST.get('communityarea', '')
+    if not yvar: yvar = request.GET.get('communityarea', 'F')
 
     params = {'form_action' : reverse_lazy('myapp:form'),
               'form_method' : 'get',
-              'form' : InputForm({'neighborhood' : neighborhood}),
-              'neighborhood' : NEIGHBODHOOD_DICT[neighborhood]}
+              'form' : InputForm({'communityarea' : communityarea}),
+              'communityarea' : NEIGHBODHOOD_DICT[communityarea]}
 
-    if NEIGHBORHOOD_DICT[neighborhood]:
-        return HttpResponseRedirect(reverse_lazy('myapp:table_and_graph', kwargs={'neighboorhood': neighborhood}))
+    if COMMUNITYAREA_DICT[communityarea]:
+        return HttpResponseRedirect(reverse_lazy('myapp:table_and_graph', kwargs={'neighboorhood': communityarea}))
     return render(request, 'form.html', params)
 
 
@@ -26,7 +26,7 @@ from django.conf import settings
 import pandas as pd
 # Display the table of specific cryme types and other variables such as
 # educational attainment. # Display trend graphs for other variables.
-def table_and_graph(request, neighborhood):
+def table_and_graph(request, communityarea):
 
    filename = join(settings.STATIC_ROOT, "ERNESTO'S CSV")
    df = pd.read_csv(filename)
@@ -37,7 +37,7 @@ def table_and_graph(request, neighborhood):
    mask_robb = df["Primary Type"].str.contains("ROBBERY")
 
    # GROUPBY
-   df_masked = df[mask_].groupby("neighborhood").count("Primary Type")
+   df_masked = df[mask_].groupby("communityarea").count("Primary Type")
 
 
 
@@ -47,7 +47,7 @@ def table_and_graph(request, neighborhood):
 
    return render(request, "JUAN'S HTML",
                 {"title": "Is "+NEIGHBORFOOD+" A Good Place to Live?",
-                 "table_crime1": table_crime1, # A table of the neighborhood, the city average, and the rank?.
+                 "table_crime1": table_crime1, # A table of the communityarea, the city average, and the rank?.
                  "table_crime2": table_crime2, # Same here.
                  "table_crime3": table_crime3, # Same here.
                  "table_other1": table_other1,
@@ -55,14 +55,14 @@ def table_and_graph(request, neighborhood):
 
    return render(request, "JUAN'S HTML", {"table_title" : "An astounding plot!",
         "pic_source" : reverse_lazy("myapp:pic",
-                                    kwargs = {'neighborhood' : neighborhood})})
+                                    kwargs = {'communityarea' : communityarea})})
 
 
 
 
 
 import matplotlib.pyplot as plt
-def pic(request, neighborhood):
+def pic(request, communityarea):
    masked_df = df[df["Neighborhood"] == str(neigborhood)]
    X = masked_df["Year"].str
    Y = masked_df["educational attainment", df["Year"] == X]
