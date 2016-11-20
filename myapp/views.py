@@ -8,10 +8,14 @@ def home(request):
 
 from .forms import InputForm
 from .models import COMMUNITYAREA_DICT
-# select communityarea and redirect to table_and_graph_function
+# Provide a form to select a community area and redirect to the "portal", which
+# collect outputs from other functions, convert them into variabvles, and send
+# them to "02CommunityChecker.html".
 def form(request):
 
     communityarea = request.POST.get('communityarea', '')
+    # COMMUNITYAREA_DICT["F"] is empty. So users are firstly led to the final
+    # line of thie function and provided the pull-down options first.
     if not communityarea: communityarea = request.GET.get('communityarea', 'F')
 
     params = {'form_action' : reverse_lazy('myapp:form'),
@@ -20,11 +24,14 @@ def form(request):
               'communityarea' : communityarea}
 
     if COMMUNITYAREA_DICT[communityarea]:
+        # After choosing a community area, a user will be redirected to "portal".
         return HttpResponseRedirect(reverse_lazy('myapp:portal', kwargs={'communityarea': communityarea}))
     return render(request, '02CommunityChecker.html', params)
 
 
 
+# This function collects outputs such as tables form other functions, convert them
+# into variables, and send into the "02CommunityChecker.html".
 def portal(request, communityarea):
     params = {"table_crime": reverse_lazy('myapp:table_crime', \
                                 kwargs={'communityarea': communityarea}),
@@ -35,6 +42,7 @@ def portal(request, communityarea):
               "graph_educ": reverse_lazy('myapp:graph_educ',\
                                 kwargs={'communityarea': communityarea}),
     }
+
     return render(request, '02CommunityChecker.html', params)
 
 
@@ -42,8 +50,8 @@ def portal(request, communityarea):
 from os.path import join
 from django.conf import settings
 import pandas as pd
-# Display the table of specific cryme types and other variables such as
-# educational attainment. # Display trend graphs for other variables.
+# Generate a table with some crime information about the community area and
+# Chicago overall.
 def table_crime(request, communityarea):
 
    filename = join(settings.STATIC_ROOT, "ERNESTO'S CSV")
@@ -55,60 +63,66 @@ def table_crime(request, communityarea):
    mask_robb = df["Primary Type"].str.contains("ROBBERY")
 
    # GROUPBY
-   df_masked = df[mask_].groupby("communityarea").count("Primary Type")
+   df_cummunitymasked = df[mask_].groupby("communityarea").count("Primary Type")
+
+   df_totalmasked = df[df["Community Area"].str.contains("Total")]
+   # Concat two dataframes.
+   df_concatted = pd.concat([df_communitymasked, df_chicagomasked], axis=1)
 
    # Create a table.
-   table_homi = df[mask_].to_html(float_format = "%.3f", classes = "table table-striped", index_names = False, index = False)
+   table_homi = df_concatted.to_html(float_format = "%.3f", classes = "table table-striped", index_names = False, index = False)
    table = table.replace('style="text-align: right;"', "")
 
-   return HttpResponse
+   return HttpResponse(table)
 
 
-
+# Generate a table with some educational information about the community area and
+# Chicago overall.
 def table_educ(request, communityarea):
 
    filename = join(settings.STATIC_ROOT, "ERNESTO'S CSV")
    df = pd.read_csv(filename)
 
    # Create a mask
-   mask_homi = df["Primary Type"].str.contains("HOMICIDE")
-   mask_rape = df["Primary Type"].str.contains("RAPE")
-   mask_robb = df["Primary Type"].str.contains("ROBBERY")
-
-   # GROUPBY
-   df_masked = df[mask_].groupby("communityarea").count("Primary Type")
+   mask = df["Community Area"].str.contains(str(communityarea) | "Total")
 
    # Create a table.
-   table_homi = df[mask_].to_html(float_format = "%.3f", classes = "table table-striped", index_names = False, index = False)
+   table = df[mask].to_html(float_format = "%.3f", classes = "table table-striped", index_names = False, index = False)
    table = table.replace('style="text-align: right;"', "")
 
+   return HttpResponse(table)
 
 
+# Generate an educational trend graph about the community area and
+# Chicago overall.
 import matplotlib.pyplot as plt
 def graph_educ(request, communityarea):
    filename = join(settings.STATIC_ROOT, "ERNESTO'S CSV")
    df = pd.read_csv(filename)
 
-   masked_df = df[df["Neighborhood"] == str(communityarea)][df["Year"] > 2010]
-   X = masked_df["Year"].str
-   Y = masked_df["educational attainment", df["Year"] == X]
+   # Plot the information about the community area.
+   community_masked_df = df[df["Neighborhood"] == str(communityarea)][df["Year"] > 2010]
+   X_community = community_masked_df["Year"].str
+   Y_community = masked_df["educational attainment", df["Year"] == X]
+   plt.figure()
+   plt.plot(x = X_community, y = Y_community, color = "r")
 
-   plt.figure() # needed, to avoid adding curves in plot
-   plt.plot(x = X, y = Y, color = "b")
+   # Plot the information about Chicago overall.
+   chicago_masked_df = df[df["Neighborhood"] == "Total"][df["Year"] > 2010]
+   X_chicago = chicago_masked_df["Year"].str
+   Y_chicago = masked_df["educational attainment", df["Year"] == X]
+   plt.figure()
+   plt.plot(x = X_chicago, y = Y_chicago, color = "b")
 
    # write bytes instead of file.
    from io import BytesIO
    figfile = BytesIO()
 
-   # this is where the color is used.
-   try: plt.savefig(figfile, format = 'png')
-   except ValueError: raise Http404("No such color")
-
-   figfile.seek(0) # rewind to beginning of file
+   figfile.seek(0)
    return HttpResponse(figfile.read(), content_type="image/png")
 
 
-
+# Generate a map with some crime information about the community area.
 import geopandas as gpd
 def crimemap(request, commynityarea):
    commu_df = gpd.read_file("community_areas.geojson")
