@@ -123,6 +123,8 @@ def graph_educ(request, communityarea):
 
 
 # Generate a map with some crime information about the community area.
+
+
 import geopandas as gpd
 def crimemap(request, commynityarea):
    commu_df = gpd.read_file("community_areas.geojson")
@@ -140,10 +142,20 @@ def crimemap(request, commynityarea):
    murder_area_count = located_crimes.groupby("community").count()[["Murders"]]
 
    mapped_murders = pd.merge(commu_df, murder_area_count, how = "inner", left_on = "community", right_index = True)
-   # ax = mapped_murders.plot(column = "Murders", k = 9, linewidth = 1)
-   base = commu_df.plot(color = "white")
-   crime_coords.plot(ax = base)
-   ax.set_axis_off()
+  
+   located_crimes.rename(columns = {"community" : "communityarea"}, inplace = True)
+   commu_df.rename(columns = {"community" : "communityarea"}, inplace = True) 
+    
+   community_crimes = located_crimes[located_crimes['communityarea']== communityarea]
+   community_boundaries = commu_df[commu_df['communityarea']== communityarea]
+
+   base = community_boundaries.plot(color = "white")
+   community_crimes.plot(ax = base)
+    
+   return HttpResponse()
+   
+
+   
 
 def crimemap_view(request, communityarea):
    community_crimes = located_crimes[located_crimes['community']== communityarea]
