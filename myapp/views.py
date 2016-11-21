@@ -57,6 +57,14 @@ def table_crime(request, communityarea):
    filename = join(settings.STATIC_ROOT, "chicagocrimes_slim.csv")
    df = pd.read_csv(filename)
 
+   # Read population of the community area and Chicago so that we can calculate
+   # crime rate later.
+   filename_pop = join(settings.STATIC_ROOT, "population_by_community_area.csv")
+   df_population = pd.read_csv(filename_pop)
+   #communityarea_index = communityarea-1)
+   ca_pop = df_population.loc[int(communityarea)-1, 'Population']
+   total_pop = df_population.loc[77,'Population']
+
    # Drop broken rows and extract data of 2015.
    mask_beat = df["Beat"].str.contains("false|true")
    mask_district = df["District"].str.contains("false|true")
@@ -65,12 +73,16 @@ def table_crime(request, communityarea):
 
    # Extract the data of specific community area.
    mask_communityarea = df["Community Area"]==int(communityarea)
-   df_ca = df[mask_communityarea][mask_2015].groupby("Primary Type").count()["Latitude"].round().astype(int)
-
+   df_ca = df[mask_communityarea][mask_2015].groupby("Primary Type").count()["Latitude"]
    df_total = df[mask_2015].groupby("Primary Type").count()["Longitude"]
 
+   # The above dataframes only have number of crimes, so we need to calcualte
+   # the crime rate.
+   crimerate_ca = 1000*df_ca/int(ca_pop)
+   crimerate_total = 1000*df_total/int(total_pop)
+
    # Concat two dataframes (one for a chosen community area, one for Chicago overall)
-   df = pd.concat([df_ca, df_total], axis=1).rename(columns = {"Latitude": str(COMMUNITYAREA_DICT[communityarea]), "Longitude": "Chicago"}).fillna(value=0).astype(int)
+   df = pd.concat([crimerate_ca, crimerate_total], axis=1).rename(columns = {"Latitude": str(COMMUNITYAREA_DICT[communityarea]), "Longitude": "CHICAGO OVERALL"}).fillna(value=0)
 
    # Create a table.
    table = df.to_html(float_format = "%.3f", classes = "table table-striped", index_names = True, index = True)
