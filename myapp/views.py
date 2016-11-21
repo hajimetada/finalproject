@@ -33,9 +33,9 @@ def form(request):
 # This function collects outputs such as tables form other functions, convert them
 # into variables, and send into the "02CommunityChecker.html".
 def portal(request, communityarea):
-    params = {"table_crime": reverse_lazy('myapp:table_crime', \
+    params = {"table_crime": reverse_lazy("myapp:table_crime", \
                                 kwargs={'communityarea': communityarea}),
-              "map_crime": reverse_lazy('myapp:map_crime', \
+              "crimemap": reverse_lazy('myapp:crimemap', \
                                 kwargs={'communityarea': communityarea}),
               "table_educ": reverse_lazy('myapp:table_educ', \
                                 kwargs={'communityarea': communityarea}),
@@ -54,23 +54,26 @@ import pandas as pd
 # Chicago overall.
 def table_crime(request, communityarea):
 
-   filename = join(settings.STATIC_ROOT, "ERNESTO'S CSV")
+   filename = join(settings.STATIC_ROOT, "chicagocrimes_slim.csv")
    df = pd.read_csv(filename)
 
-   # Create a mask
-   mask_homi = df["Primary Type"].str.contains("HOMICIDE")
-   mask_rape = df["Primary Type"].str.contains("RAPE")
-   mask_robb = df["Primary Type"].str.contains("ROBBERY")
+   # Drop broken rows and extract data of 2015.
+   mask_beat = df["Beat"].str.contains("false|true")
+   mask_district = df["District"].str.contains("false|true")
+   mask_2015 = df["Year"]==2015
+   df = df[~mask_beat][~mask_district][mask_2015]
 
-   # GROUPBY
-   df_cummunitymasked = df[mask_].groupby("communityarea").count("Primary Type")
+   # Extract the data of specific community area.
+   mask_communityarea = df["Community Area"]==int(communityarea)
+   df_ca = df[mask_communityarea][mask_2015].groupby("Primary Type").count()["Latitude"].round().astype(int)
 
-   df_totalmasked = df[df["Community Area"].str.contains("Total")]
-   # Concat two dataframes.
-   df_concatted = pd.concat([df_communitymasked, df_chicagomasked], axis=1)
+   df_total = df[mask_2015].groupby("Primary Type").count()["Longitude"]
+
+   # Concat two dataframes (one for a chosen community area, one for Chicago overall)
+   df = pd.concat([df_ca, df_total], axis=1).rename(columns = {"Latitude": str(COMMUNITYAREA_DICT[communityarea]), "Longitude": "Chicago"}).fillna(value=0).astype(int)
 
    # Create a table.
-   table_homi = df_concatted.to_html(float_format = "%.3f", classes = "table table-striped", index_names = False, index = False)
+   table = df.to_html(float_format = "%.3f", classes = "table table-striped", index_names = True, index = True)
    table = table.replace('style="text-align: right;"', "")
 
    return HttpResponse(table)
@@ -126,7 +129,8 @@ def graph_educ(request, communityarea):
 
 
 import geopandas as gpd
-def crimemap(request, commynityarea):
+def crimemap(request, communityarea):
+   communityarea = COMMUNITYAREA_DICT[str(communityarea)]
    commu_df = gpd.read_file("community_areas.geojson")
 
    from shapely.geometry import Point
@@ -142,24 +146,18 @@ def crimemap(request, commynityarea):
    murder_area_count = located_crimes.groupby("community").count()[["Murders"]]
 
    mapped_murders = pd.merge(commu_df, murder_area_count, how = "inner", left_on = "community", right_index = True)
-  
+
    located_crimes.rename(columns = {"community" : "communityarea"}, inplace = True)
-   commu_df.rename(columns = {"community" : "communityarea"}, inplace = True) 
-    
-   community_crimes = located_crimes[located_crimes['communityarea']== communityarea]
-   community_boundaries = commu_df[commu_df['communityarea']== communityarea]
+   commu_df.rename(columns = {"community" : "communityarea"}, inplace = True)
+
+   community_crimes = located_crimes[located_crimes['communityarea']==str(communityarea)]
+   community_boundaries = commu_df[commu_df['communityarea']==str(communityarea)]
 
    base = community_boundaries.plot(color = "white")
    community_crimes.plot(ax = base)
-    
-   return HttpResponse()
-   
 
-   
+   from io import BytesIO
+   figfile = BytesIO()
 
-def crimemap_view(request, communityarea):
-   community_crimes = located_crimes[located_crimes['community']== communityarea]
-   community_boundaries = commu_df[commu_df['community']== community]
-
-   base = community_boundaries.plot(color = "white")
-   community_crimes.plot(ax = base)
+   figfile.seek(0)
+   return HttpResponse(figfile.read(), content_type="image/png")
