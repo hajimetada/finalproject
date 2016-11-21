@@ -129,8 +129,7 @@ def graph_educ(request, communityarea):
 
 
 import geopandas as gpd
-def crimemap(request, communityarea):
-   communityarea = COMMUNITYAREA_DICT[str(communityarea)]
+def crimemap(request, commynityarea):
    commu_df = gpd.read_file("community_areas.geojson")
 
    from shapely.geometry import Point
@@ -150,14 +149,20 @@ def crimemap(request, communityarea):
    located_crimes.rename(columns = {"community" : "communityarea"}, inplace = True)
    commu_df.rename(columns = {"community" : "communityarea"}, inplace = True)
 
-   community_crimes = located_crimes[located_crimes['communityarea']==str(communityarea)]
-   community_boundaries = commu_df[commu_df['communityarea']==str(communityarea)]
+   community_crimes = located_crimes[located_crimes['communityarea']== communityarea]
+   community_boundaries = commu_df[commu_df['communityarea']== communityarea]
 
    base = community_boundaries.plot(color = "white")
    community_crimes.plot(ax = base)
 
-   from io import BytesIO
-   figfile = BytesIO()
+   return HttpResponse(content_type="image/png")
 
-   figfile.seek(0)
-   return HttpResponse(figfile.read(), content_type="image/png")
+
+
+
+def crimemap_view(request, communityarea):
+   community_crimes = located_crimes[located_crimes['community']== communityarea]
+   community_boundaries = commu_df[commu_df['community']== community]
+
+   base = community_boundaries.plot(color = "white")
+   community_crimes.plot(ax = base)
