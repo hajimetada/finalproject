@@ -152,7 +152,7 @@ def crimemap(request, commynityarea):
    base = community_boundaries.plot(color = "white")
    community_crimes.plot(ax = base)
     
-   return HttpResponse()
+   return HttpResponse(content_type="image/png")
    
 
    
