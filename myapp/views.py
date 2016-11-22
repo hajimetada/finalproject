@@ -95,14 +95,19 @@ def table_crime(request, communityarea):
 # Chicago overall.
 def table_educ(request, communityarea):
 
-   filename = join(settings.STATIC_ROOT, "ERNESTO'S CSV")
+   filename = join(settings.STATIC_ROOT, "chicagocrimes_slim.csv")
    df = pd.read_csv(filename)
 
-   # Create a mask
-   mask = df["Community Area"].str.contains(str(communityarea) | "Total")
+   # Extract the data of specific community area.
+   mask_communityarea = df["Community Area"]==int(communityarea)-1
+   df_ca = df[mask_communityarea]["COMMUNITY AREA NUMBER", "COMMUNITY AREA", "PERCENT AGED 25+ WITHOUT HIGHSCHOOL DIPLOMA"]
+   df_total = df[79]["COMMUNITY AREA NUMBER", "COMMUNITY AREA", "PERCENT AGED 25+ WITHOUT HIGHSCHOOL DIPLOMA"]
+
+   # Concat two dataframes (one for a chosen community area, one for Chicago overall)
+   df = pd.concat([df_ca, df_total], axis=0)
 
    # Create a table.
-   table = df[mask].to_html(float_format = "%.3f", classes = "table table-striped", index_names = False, index = False)
+   table = df.to_html(float_format = "%.3f", classes = "table table-striped", index_names = True, index = True)
    table = table.replace('style="text-align: right;"', "")
 
    return HttpResponse(table)
