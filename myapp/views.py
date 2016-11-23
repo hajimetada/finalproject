@@ -171,13 +171,3 @@ def crimemap(request, commynityarea):
    community_crimes.plot(ax = base)
 
    return HttpResponse(content_type="image/png")
-
-
-
-
-def crimemap_view(request, communityarea):
-   community_crimes = located_crimes[located_crimes['community']== communityarea]
-   community_boundaries = commu_df[commu_df['community']== community]
-
-   base = community_boundaries.plot(color = "white")
-   community_crimes.plot(ax = base)
