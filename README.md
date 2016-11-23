@@ -1,6 +1,15 @@
 # finalproject
 
---------------------------------(starting up)----------------------------------
+<Source>
+We used two sources as follows:<br />
+"Crime Data 2001-"<br />
+     City of Chicago Data Portal<br /> (https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2/data)<br /
+""
+
+
+
+
+--------------------------------(starting up)----------------------------------<br />
 First thing to do:
 git clone git@github.com:hajimetada/finalproject-Ernesto-Juan-Hajime.git
 
