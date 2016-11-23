@@ -1,7 +1,8 @@
 # finalproject
 
+--------------------------------(starting up)----------------------------------
 First thing to do:
-git clone git@github.com:hajimetada/finalproject.git
+git clone git@github.com:hajimetada/finalproject-Ernesto-Juan-Hajime.git
 
 Project Guideline:
 https://harris-ippp.github.io/
