@@ -37,9 +37,9 @@ def portal(request, communityarea):
                                 kwargs={'communityarea': communityarea}),
               "crimemap": reverse_lazy('myapp:crimemap', \
                                 kwargs={'communityarea': communityarea}),
-              "table_educ": reverse_lazy('myapp:table_educ', \
-                                kwargs={'communityarea': communityarea}),
               "graph_educ": reverse_lazy('myapp:graph_educ',\
+                                kwargs={'communityarea': communityarea}),
+              "graph_poverty": reverse_lazy('myapp:graph_poverty',\
                                 kwargs={'communityarea': communityarea}),
     }
 
@@ -91,60 +91,58 @@ def table_crime(request, communityarea):
    return HttpResponse(table)
 
 
-# Generate a table with some educational information about the community area and
-# Chicago overall.
-def table_educ(request, communityarea):
-
-   filename = join(settings.STATIC_ROOT, "chicagocrimes_slim.csv")
-   df = pd.read_csv(filename)
-
-   # Extract the data of specific community area.
-   mask_communityarea = df["Community Area"]==int(communityarea)-1
-   df_ca = df[mask_communityarea]["COMMUNITY AREA NUMBER", "COMMUNITY AREA", "PERCENT AGED 25+ WITHOUT HIGHSCHOOL DIPLOMA"]
-   df_total = df[79]["COMMUNITY AREA NUMBER", "COMMUNITY AREA", "PERCENT AGED 25+ WITHOUT HIGHSCHOOL DIPLOMA"]
-
-   # Concat two dataframes (one for a chosen community area, one for Chicago overall)
-   df = pd.concat([df_ca, df_total], axis=0)
-
-   # Create a table.
-   table = df.to_html(float_format = "%.3f", classes = "table table-striped", index_names = True, index = True)
-   table = table.replace('style="text-align: right;"', "")
-
-   return HttpResponse(table)
-
-
-# Generate an educational trend graph about the community area and
-# Chicago overall.
+# Generate a graph of educational indicator, which is % aged 25+ without
+# highschool diploma.
 import matplotlib.pyplot as plt
 def graph_educ(request, communityarea):
-   filename = join(settings.STATIC_ROOT, "ERNESTO'S CSV")
+   filename = join(settings.STATIC_ROOT, "SelectedIndicators.csv")
    df = pd.read_csv(filename)
-
-   # Plot the information about the community area.
-   community_masked_df = df[df["Neighborhood"] == str(communityarea)][df["Year"] > 2010]
-   X_community = community_masked_df["Year"].str
-   Y_community = masked_df["educational attainment", df["Year"] == X]
-   plt.figure()
-   plt.plot(x = X_community, y = Y_community, color = "r")
-
-   # Plot the information about Chicago overall.
-   chicago_masked_df = df[df["Neighborhood"] == "Total"][df["Year"] > 2010]
-   X_chicago = chicago_masked_df["Year"].str
-   Y_chicago = masked_df["educational attainment", df["Year"] == X]
-   plt.figure()
-   plt.plot(x = X_chicago, y = Y_chicago, color = "b")
-
-   # write bytes instead of file.
+   # Extract a few columns which are necessary.
+   df = df[["Community Area Number", "COMMUNITY AREA NAME","PERCENT AGED 25+ WITHOUT HIGH SCHOOL DIPLOMA"]]
+   DF = df.plot(kind="bar", x="COMMUNITY AREA NAME", y="PERCENT AGED 25+ WITHOUT HIGH SCHOOL DIPLOMA")
+   # Lower the bottom of the figure so that it can accommodate x-labels.
+   plt.subplots_adjust(bottom=.3)
+   # Highlight the chosen community area and Chicago overall.
+   DF.patches[int(communityarea)-1].set_color('r')
+   DF.patches[77].set_color('r')
+   # Write to bytes.
    from io import BytesIO
    figfile = BytesIO()
+   fig = DF.get_figure()
+   # Adjust the width and height of the figure.
+   fig.set_size_inches(16, 6)
+   # Cut off unnecessary margin and save the figure.
+   fig.savefig(figfile, format="png", bbox_inches='tight')
+   figfile.seek(0)
+   return HttpResponse(figfile.read(), content_type="image/png")
 
+# Generate a graph of educational indicator, which is % aged 25+ without
+# highschool diploma.
+def graph_poverty(request, communityarea):
+   filename = join(settings.STATIC_ROOT, "SelectedIndicators.csv")
+   df = pd.read_csv(filename)
+   # Extract a few columns which are necessary.
+   df = df[["Community Area Number", "COMMUNITY AREA NAME","PERCENT HOUSEHOLDS BELOW POVERTY"]]
+   DF = df.plot(kind="bar", x="COMMUNITY AREA NAME", y="PERCENT HOUSEHOLDS BELOW POVERTY")
+   # Lower the bottom of the figure so that it can accommodate x-labels.
+   plt.subplots_adjust(bottom=.3)
+   # Highlight the chosen community area and Chicago overall.
+   DF.patches[int(communityarea)-1].set_color('r')
+   DF.patches[77].set_color('r')
+   # Write to bytes.
+   from io import BytesIO
+   figfile = BytesIO()
+   fig = DF.get_figure()
+   # Adjust the width and height of the figure.
+   fig.set_size_inches(16, 6)
+   # Cut off unnecessary margin and save the figure.
+   fig.savefig(figfile, format="png", bbox_inches='tight')
    figfile.seek(0)
    return HttpResponse(figfile.read(), content_type="image/png")
 
 
+
 # Generate a map with some crime information about the community area.
-
-
 import geopandas as gpd
 def crimemap(request, commynityarea):
    commu_df = gpd.read_file("community_areas.geojson")
