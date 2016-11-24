@@ -11,17 +11,16 @@
       <p>
       Want to know about another community area? <a href="http://127.0.0.1:8000/myapp/form/">Search again.</a>
       <p>
-      Crimeinal Indicator (Crimes per 1,000 Population in 2015)
-      <table>{{ table_crime|safe }}</table>
+      <h4>Criminal Indicator (Crimes per 1,000 Population in 2015)</h4>
+      <table>{{table | safe}}</table>
       <p>
       <pic src={{crimemap}}></pic>"
       <p>
-      { table_educ|safe }
-      <p>
-      Educational Indicator (% Aged 25+ without Highschool Diploma)
+      <h4>Educational Indicator (% Aged 25+ without Highschool Diploma)</h4>
       <img src={{graph_educ}}></img>
       <p>
-      Poverty Indicator (% Households below Poverty)
+      <h4>Poverty Indicator (% Households below Poverty)</h4>
+      <p>
       <img src={{graph_poverty}}></img>
   {% endif %}
 

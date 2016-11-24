@@ -29,12 +29,49 @@ def form(request):
     return render(request, '02CommunityChecker.html', params)
 
 
-
+from os.path import join
+from django.conf import settings
+import pandas as pd
 # This function collects outputs such as tables form other functions, convert them
 # into variables, and send into the "02CommunityChecker.html".
 def portal(request, communityarea):
-    params = {"table_crime": reverse_lazy("myapp:table_crime", \
-                                kwargs={'communityarea': communityarea}),
+    # This function's role is to pass variables collected form other functions
+    # into the template. However, somehow I was not able obtain a table as a
+    # variavleto from another function, so I will generate a table in this function.
+
+    # Generate a table with all the crime information about the community area and
+    # Chicago overall, and the rank of the community by crime type.
+    filename = join(settings.STATIC_ROOT, "processed_data.csv")
+    df = pd.read_csv(filename)
+    # Create a mask to pull the data of designated community area and Chicago overall.
+    mask = (df["Community Area Number"]==int(communityarea))|(df["Community Area Number"]==0)
+    # Apply mask, set "Community Area Number" as index so that the gap between
+    # index and community area number will be resolved (originally,
+    # index = community area number - 1). Remove unnecessary first three indicators,
+    # and traspose indices and columns for the sake of user experience (the original
+    # table is going to be too wide.).
+    df_result = df[mask].set_index("Community Area Number").ix[:,4:].T
+    # Add a new column for entering rank.
+    df_result["Rank(Higher=Safer)/77"] = ""
+    # Do the same manipulation as "df_result". This dataframe is necessary for
+    # measuring ranks, so the data of Chicago needs to be dropped (index of Chicago is 0).
+    df = df.set_index("Community Area Number").ix[:,4:].drop(0, axis=0)
+
+    # Create a list of crime types.
+    ctype = list(df.columns.values)
+    # Create a for loop to obtain ranks of particular community area in all the
+    # crime types, and add them to the rank cell in df_result.
+    for x in ctype:
+        df_ctype = df.rank(method='first').astype(int)
+        a = df_ctype.loc[int(communityarea), str(x)]
+        df_result.set_value(str(x), "Rank(Higher=Safer)/77", a)
+    # Rename the columns.
+    df_result = df_result.rename(columns={int(communityarea):COMMUNITYAREA_DICT[communityarea], 0:"CHICAGO"})
+    # Create a table.
+    table = df_result.to_html(float_format = "%.3f", classes = "table table-striped", index_names = True, index = True).replace('style="text-align: right;"', "")
+
+
+    params = {"table": table,
               "crimemap": reverse_lazy('myapp:crimemap', \
                                 kwargs={'communityarea': communityarea}),
               "graph_educ": reverse_lazy('myapp:graph_educ',\
@@ -47,55 +84,11 @@ def portal(request, communityarea):
 
 
 
-from os.path import join
-from django.conf import settings
-import pandas as pd
-# Generate a table with some crime information about the community area and
-# Chicago overall.
-def table_crime(request, communityarea):
-
-   filename = join(settings.STATIC_ROOT, "chicagocrimes_slim.csv")
-   df = pd.read_csv(filename)
-
-   # Read population of the community area and Chicago so that we can calculate
-   # crime rate later.
-   filename_pop = join(settings.STATIC_ROOT, "population_by_community_area.csv")
-   df_population = pd.read_csv(filename_pop)
-   #communityarea_index = communityarea-1)
-   ca_pop = df_population.loc[int(communityarea)-1, 'Population']
-   total_pop = df_population.loc[77,'Population']
-
-   # Drop broken rows and extract data of 2015.
-   mask_beat = df["Beat"].str.contains("false|true")
-   mask_district = df["District"].str.contains("false|true")
-   mask_2015 = df["Year"]==2015
-   df = df[~mask_beat][~mask_district][mask_2015]
-
-   # Extract the data of specific community area.
-   mask_communityarea = df["Community Area"]==int(communityarea)
-   df_ca = df[mask_communityarea][mask_2015].groupby("Primary Type").count()["Latitude"]
-   df_total = df[mask_2015].groupby("Primary Type").count()["Longitude"]
-
-   # The above dataframes only have number of crimes, so we need to calcualte
-   # the crime rate.
-   crimerate_ca = 1000*df_ca/int(ca_pop)
-   crimerate_total = 1000*df_total/int(total_pop)
-
-   # Concat two dataframes (one for a chosen community area, one for Chicago overall)
-   df = pd.concat([crimerate_ca, crimerate_total], axis=1).rename(columns = {"Latitude": str(COMMUNITYAREA_DICT[communityarea]), "Longitude": "CHICAGO OVERALL"}).fillna(value=0)
-
-   # Create a table.
-   table = df.to_html(float_format = "%.3f", classes = "table table-striped", index_names = True, index = True)
-   table = table.replace('style="text-align: right;"', "")
-
-   return HttpResponse(table)
-
-
 # Generate a graph of educational indicator, which is % aged 25+ without
 # highschool diploma.
 import matplotlib.pyplot as plt
 def graph_educ(request, communityarea):
-   filename = join(settings.STATIC_ROOT, "SelectedIndicators.csv")
+   filename = join(settings.STATIC_ROOT, "processed_data.csv")
    df = pd.read_csv(filename)
    # Extract a few columns which are necessary.
    df = df[["Community Area Number", "COMMUNITY AREA NAME","PERCENT AGED 25+ WITHOUT HIGH SCHOOL DIPLOMA"]]
@@ -119,7 +112,7 @@ def graph_educ(request, communityarea):
 # Generate a graph of educational indicator, which is % aged 25+ without
 # highschool diploma.
 def graph_poverty(request, communityarea):
-   filename = join(settings.STATIC_ROOT, "SelectedIndicators.csv")
+   filename = join(settings.STATIC_ROOT, "processed_data.csv")
    df = pd.read_csv(filename)
    # Extract a few columns which are necessary.
    df = df[["Community Area Number", "COMMUNITY AREA NAME","PERCENT HOUSEHOLDS BELOW POVERTY"]]

@@ -40,14 +40,14 @@ table {
   align: center;
   border-width: 5px 0px;
   border-style: solid;
-  border-color: darkblue;
+  border-color: blue;
   background: #FFF;
   padding: 0px;
   border-spacing: 0px;
 }
 th {
-  color: white;
-  background-color: darkblue;
+  color: black;
+  background-color: lightblue;
 }
 th, td {
   text-align: left;
@@ -55,6 +55,11 @@ th, td {
 }
 h1 {
   color: black;
+}
+h4 {
+  color: black;
+  font-size: 25px;
+  text-align: center;
 }
 </style>
 
@@ -66,7 +71,6 @@ h1 {
   <ul class="nav">
     <li><a href="http://127.0.0.1:8000/myapp/" {% block class1 %}{% endblock %}>Home</a></li>
     <li><a href="http://127.0.0.1:8000/myapp/form/" {% block class2 %}{% endblock %}>Community Area Finder</a></li>
-    <li><a href="file:///Users/Juan/Desktop/Prog/Project/Choosing_Chicago.html">Choosing Chicago</a></li>
   </ul>
 </head>
 
