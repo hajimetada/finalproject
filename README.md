@@ -1,31 +1,36 @@
 # finalproject
 
 <Sources>
-We used three sources as follows:<br />
-"Crime Data 2001-"<br />
-     City of Chicago Data Portal<br /> (https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2/data)<br /
-""
+We used two sources from the City of Chicago:<br />
+1) "Crime Data 2001-"<br />
+     City of Chicago Data Portal<br /> (https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2/data)<br />
+
+2) "Census Data - Selected socioeconomic indicators in Chicago, 2008 – 2012" <br />
+     City of Chicago Data Portal (https://data.cityofchicago.org/Health-Human-Services/Census-Data-Selected-socioeconomic-indicators-in-C/kn9c-c2s2)<br />
+     
+3) "Chicago Community Areas by Population" <br />
+     Social Impact Research Center-A Heartland Alliance Program (http://www.ilpovertyreport.org/sites/default/files/uploads/Chicago%20Community%20Area%20Indicators,%202000-2012_140321.pdf)<br />
 
 <Clearing/Reducing Process of Data>
 You can find the script in finalproject-Ernesto-Juan-Hajime/static/dataclean.py.<br />
 <br />
 Chicago Crime Data was the most difficult one to process since it was the very
-primitive raw data which has each individual case. What I did is:<br />
+primitive raw data which has each individual case. I did the following:<br />
     • Read the csv file into pd.dataframe<br />
-    • Extract columns I need for this Project<br />
-    • Extract the data of 2015<br />
-    • Drop rows with missing values <br />
-    • For each community area, group by crime types and count the incidents<br />
-    • Convert the data from "number of crimes" into "number of crimes per 1,000           residents" by using the data of communitya rea population, so as to allow for comparison with other community areas<br />
+    • Extracted the columns I need for this Project<br />
+    • Extracted the data for 2015<br />
+    • Dropped rows with missing values <br />
+    • For each community area, grouped by crime types and counted the incidents<br />
+    • Converted the data from "number of crimes" into "number of crimes per 1,000 residents" by using the data of community area population, so as to allow for comparison with other community areas<br />
     • Concat all the dataframe based on each community area<br />
 <br />
-On the other hand, SelectedIndicators.csv was already nicely processed. It is grouped by community areas and has % of various indicators. What I did is:<br />
+On the other hand, both SelectedIndicators.csv and the Public Health Statistics were already nicely processed. The information is grouped by community areas and has % of various indicators. What I did is:<br />
     • Read the csv file into pd.dataframe<br />
-    • Extract columns I need for this project <br />
-    • Fill the empty cell ("NA") with zero<br />
-    • Clean up datatype (e.g. "community area number" was somehow converted to floats.)<br />
+    • Extracted the columns I need for this project <br />
+    • Filled the empty cell ("NA") with zero<br />
+    • Cleaned datatype (e.g. "community area number" was somehow converted to floats.)<br />
 <br />
-And finally, I concated these dataframes, rounded up to 2nd decimal place, and exported the dataframe to a csv file. I succeeded in reducing the total file size of about 1.5GB to 15KB.
+And finally, I concated these two dataframes, rounded up to 2nd decimal place, and exported the dataframe to a csv file. I succeeded in reducing the total file size from about 1.5GB to 15KB.
 
 
 
