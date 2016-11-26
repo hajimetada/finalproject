@@ -2,7 +2,7 @@
 
 Welcome!
 
------------------------------------------------LAUNCHING WEBAPP--------------------------------------------------<br />
+----------------------------------------------LAUNCHING WEBAPP-------------------------------------------------<br />
 After running "python manage.py runserver", access our website at (http://127.0.0.1:8000/myapp/).
 
 The purpose of this webapp is to provide useful information about certain community area to those who are wondering which community area to live in Chicago.<br />
@@ -16,9 +16,10 @@ After enjoying the top page, proceed to "Community Area Fact Checker". When you 
     You will be able to compare the educational situation across community areas by using "% aged 25+ without high school diploma". The bars of the community area you choose and Chicago will be highlighted.
   • The bar graph of poverty indicator<br />
     You will be able to compare the poverty indicator across community areas by using "% households below poverty". The bars of the community area you choose and Chicago will be highlighted.
-
-
---------------------------------------------------------------SOURCES----------------------------------------------------------------<br />
+<br />
+<br />
+<br />
+---------------------------------------------------SOURCES-----------------------------------------------------<br />
 We used two sources from the City of Chicago:<br />
 1) "Crime Data 2001-"<br />
      City of Chicago Data Portal<br /> (https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2/data)<br />
@@ -28,8 +29,10 @@ We used two sources from the City of Chicago:<br />
 
 3) "Chicago Community Areas by Population" <br />
      Social Impact Research Center-A Heartland Alliance Program (http://www.ilpovertyreport.org/sites/default/files/uploads/Chicago%20Community%20Area%20Indicators,%202000-2012_140321.pdf)<br />
-
--------------------------------------------------Clearing/Reducing Process of Data----------------------------------------------------<br />
+<br />
+<br />
+<br />
+--------------------------------------Clearing/Reducing Process of Data-----------------------------------------<br />
 You can find the script in finalproject-Ernesto-Juan-Hajime/static/dataclean.py.<br />
 <br />
 Chicago Crime Data was the most difficult one to process since it was the very
@@ -59,7 +62,7 @@ And finally, I concated these two dataframes, rounded up to 2nd decimal place, a
 <br />
 <br />
 <br />
----------------------------------------------------------(FOR TEAM MEMBERS)------------------------------------------------------------<br />
+----------------------------------------------(FOR TEAM MEMBERS)-------------------------------------------------<br />
 First thing to do:
 git clone git@github.com:hajimetada/finalproject-Ernesto-Juan-Hajime.git
 
