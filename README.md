@@ -47,7 +47,7 @@ primitive raw data which has each individual case. I did the following:<br />
   + Converted the data from "number of crimes" into "number of crimes per 1,000 residents" by using the data of community area population, so as to allow for comparison with other community areas<br />
   + Concat all the dataframe based on each community area<br />
   
-(For the homicide map purpose, I created a separate csv file which only contain homicide data in 2015 with almost the same process as above.)
+(For the homicide map purpose, I created a separate csv file which only contain homicide data in 2015 with almost the same process as above. It's not the same file Jamie used in the class. It's much lighter and simpler.)
 
 <br />
 On the other hand, the census data were already nicely processed. The information is grouped by community areas and has % of various indicators. What I did is:<br />
