@@ -25,11 +25,11 @@ We used two sources from the City of Chicago:<br />
   + "Crime Data 2001-"<br />
      City of Chicago Data Portal<br /> (https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2/data)<br />
 
-  +  "Census Data - Selected socioeconomic indicators in Chicago, 2008 – 2012" <br />
-     City of Chicago Data Portal (https://data.cityofchicago.org/Health-Human-Services/Census-Data-Selected-socioeconomic-indicators-in-C/kn9c-c2s2)<br />
-
   + "Chicago Community Areas by Population" <br />
      Social Impact Research Center-A Heartland Alliance Program (http://www.ilpovertyreport.org/sites/default/files/uploads/Chicago%20Community%20Area%20Indicators,%202000-2012_140321.pdf)<br />
+     
+  +  "Census Data - Selected socioeconomic indicators in Chicago, 2008 – 2012" <br />
+     City of Chicago Data Portal (https://data.cityofchicago.org/Health-Human-Services/Census-Data-Selected-socioeconomic-indicators-in-C/kn9c-c2s2)<br />
 <br />
 <br />
 <br />
@@ -47,10 +47,10 @@ primitive raw data which has each individual case. I did the following:<br />
   + Converted the data from "number of crimes" into "number of crimes per 1,000 residents" by using the data of community area population, so as to allow for comparison with other community areas<br />
   + Concat all the dataframe based on each community area<br />
   
-For the homicide map purpose, I created a separate csv file which only contain homicide data in 2015 with almost the same process as above.
+(For the homicide map purpose, I created a separate csv file which only contain homicide data in 2015 with almost the same process as above.)
 
 <br />
-On the other hand, both SelectedIndicators.csv and the Public Health Statistics were already nicely processed. The information is grouped by community areas and has % of various indicators. What I did is:<br />
+On the other hand, the census data were already nicely processed. The information is grouped by community areas and has % of various indicators. What I did is:<br />
   + Read the csv file into pd.dataframe<br />
   + Extracted the columns I need for this project <br />
   + Filled the empty cell ("NA") with zero<br />
