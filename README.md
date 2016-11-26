@@ -27,7 +27,7 @@ We used two sources from the City of Chicago:<br />
 
   + "Chicago Community Areas by Population" <br />
      Social Impact Research Center-A Heartland Alliance Program (http://www.ilpovertyreport.org/sites/default/files/uploads/Chicago%20Community%20Area%20Indicators,%202000-2012_140321.pdf)<br />
-     
+
   +  "Census Data - Selected socioeconomic indicators in Chicago, 2008 – 2012" <br />
      City of Chicago Data Portal (https://data.cityofchicago.org/Health-Human-Services/Census-Data-Selected-socioeconomic-indicators-in-C/kn9c-c2s2)<br />
 <br />
@@ -46,8 +46,13 @@ primitive raw data which has each individual case. I did the following:<br />
   + For each community area, grouped by crime types and counted the incidents<br />
   + Converted the data from "number of crimes" into "number of crimes per 1,000 residents" by using the data of community area population, so as to allow for comparison with other community areas<br />
   + Concat all the dataframe based on each community area<br />
-  
-(For the homicide map purpose, I created a separate csv file which only contain homicide data in 2015 with almost the same process as above. It's not the same file Jamie used in the class. It's much lighter and simpler.)
+  + (You can find the scripts "dataclean.py" at "finalproject-Ernesto-Juan-Hajime/static")
+
+For the homicide map purpose: <br />
+  + Cleaned the data with the scripts("01dataclean_for_map.py"), and produced "02map.csv"br />
+  + Process "02map.csv", create a html file with the scripts("03createmap.py")br />
+  + (You can find the scripts at "finalproject-Ernesto-Juan-Hajime/static/for_map") br />
+
 
 <br />
 On the other hand, the census data were already nicely processed. The information is grouped by community areas and has % of various indicators. What I did is:<br />
