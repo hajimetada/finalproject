@@ -51,10 +51,10 @@ For the homicide map purpose, I created a separate csv file which only contain h
 
 <br />
 On the other hand, both SelectedIndicators.csv and the Public Health Statistics were already nicely processed. The information is grouped by community areas and has % of various indicators. What I did is:<br />
-    • Read the csv file into pd.dataframe<br />
-    • Extracted the columns I need for this project <br />
-    • Filled the empty cell ("NA") with zero<br />
-    • Cleaned datatype (e.g. "community area number" was somehow converted to floats.)<br />
+  + Read the csv file into pd.dataframe<br />
+  + Extracted the columns I need for this project <br />
+  + Filled the empty cell ("NA") with zero<br />
+  + Cleaned datatype (e.g. "community area number" was somehow converted to floats.)<br />
 <br />
 And finally, I concated these two dataframes, rounded up to 2nd decimal place, and exported the dataframe to a csv file. I succeeded in reducing the total file size from about 1.5GB to 15KB.
 <br />
