@@ -1,5 +1,7 @@
 {% extends "00base.html" %}
 
+
+
 {% block class2 %}class="active"{% endblock %}
 
 {% block content %}
@@ -7,21 +9,21 @@
       Choose your community area!
   {% endif %}
   {% if  not communityarea %}
-      Here is the some useful information you might need!
+        Here is the some useful information you might need!
       <p>
-      Want to know about another community area? <a href="http://127.0.0.1:8000/myapp/form/">Search again.</a>
+        Want to know about another community area? <a href="http://127.0.0.1:8000/myapp/form/">Search again.</a>
       <p>
-      <h4>Criminal Indicator (Crimes per 1,000 Population in 2015)</h4>
-      <table>{{table | safe}}</table>
+        <h4>Criminal Indicator (Crimes per 1,000 Population in 2015)</h4>
+        {{table | safe}}
       <p>
-      <pic src={{crimemap}}></pic>"
+        <h4>Homicide Map 2015</h4>
+        {% include "03homicidemap.html" %}
       <p>
-      <h4>Educational Indicator (% Aged 25+ without Highschool Diploma)</h4>
-      <img src={{graph_educ}}></img>
+        <h4>Educational Indicator (% Aged 25+ without Highschool Diploma)</h4>
+        <img src={{graph_educ}}></img>
       <p>
-      <h4>Poverty Indicator (% Households below Poverty)</h4>
-      <p>
-      <img src={{graph_poverty}}></img>
+        <h4>Poverty Indicator (% Households below Poverty)</h4>
+        <img src={{graph_poverty}}></img>
   {% endif %}
 
   <form action="{{ form_action }}"

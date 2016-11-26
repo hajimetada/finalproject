@@ -6,6 +6,7 @@
 <style>
 * { font-family: 'Times New Roman' }
 body {margin: 5% 5%;}
+
 ul.nav {
   list-style-type: none;
   margin: 5px;
@@ -13,7 +14,10 @@ ul.nav {
   overflow: auto;;
   background-color: black;
 }
-ul.nav li { float: left;align-content: center;animation-fill-mode: backwards;;; }
+ul.nav li {
+  float: left;
+  align-content: center;
+  animation-fill-mode: backwards;;; }
 ul.nav li a {
   display:inline-flex;;
   color: white;
@@ -57,8 +61,7 @@ h1 {
   color: black;
 }
 h4 {
-  color: black;
-  font-size: 25px;
+  font-size: 30px;
   text-align: center;
 }
 </style>
@@ -70,7 +73,7 @@ h4 {
 
   <ul class="nav">
     <li><a href="http://127.0.0.1:8000/myapp/" {% block class1 %}{% endblock %}>Home</a></li>
-    <li><a href="http://127.0.0.1:8000/myapp/form/" {% block class2 %}{% endblock %}>Community Area Finder</a></li>
+    <li><a href="http://127.0.0.1:8000/myapp/form/" {% block class2 %}{% endblock %}>Community Area Fact Checker</a></li>
   </ul>
 </head>
 
@@ -79,4 +82,7 @@ h4 {
 {% block content %}{% endblock %}
 
 </body>
+
+
+
 </html>

@@ -7,18 +7,20 @@ import pandas as pd
 # This file is from City of Chicago Data Portal.
 df_crime = pd.read_csv("Crimes_-_2001_to_present.csv")
 # Extract a few variables that are necessary to this webapp.
-df_crime = df_crime[["Primary Type", "Community Area", "Year", "X Coordinate", "Y Coordinate"]]
-# Extract the data of 2015. 2015 is the latest data which is complete (2016 is still ongoing).
-df_crime = df_crime[df_crime["Year"]==2015]
-# Drop rows with missing values/
-df_crime = df_crime.dropna()
+df_crime = df_crime[["Primary Type", "Community Area", "Year"]]
+# Extract the data of 2015. 2015 is the latest data which is complete (2016 is still ongoing),
+# and drop rows with missing values.
+df_crime = df_crime[df_crime["Year"]==2015].dropna()
+# Drop rows if "Primary Type" is "NON-CRIMINAL" or "NON - CRIMINAL",
+# since it's negligible information.
+mask1 = df_crime["Primary Type"]=="NON-CRIMINAL"
+mask2 = df_crime["Primary Type"]=="NON - CRIMINAL"
+df_crime = df_crime[~mask1][~mask2]
 # Convert floats to integers.
-df_crime = df_crime.astype({"Primary Type":str, "Community Area":int, "Year":int, "X Coordinate":int, "Y Coordinate":int})
+df_crime = df_crime.astype({"Primary Type":str, "Community Area":int, "Year":int})
 # Group by crime types ("Primary Type"), count the number of "Year" in each crime type.
 df_crime_chicago = df_crime.groupby("Primary Type").count()["Year"]
-
 # Create a dataframe about community area/Chicago population.
-# This file is from                 where?
 # I need this because the above df_crime only has the number of case, which is
 # uncomparable with other community areas. I will process this data to produce
 # the numer of crimes per 1,000 people.
