@@ -63,10 +63,7 @@ And finally, I concated these two dataframes, rounded up to 2nd decimal place, a
 <br />
 <br />
 <br />
-<br />
-<br />
-<br />
-<br />
+
 ----------------------------------------------(FOR TEAM MEMBERS)-------------------------------------------------<br />
 First thing to do:
 git clone git@github.com:hajimetada/finalproject-Ernesto-Juan-Hajime.git
