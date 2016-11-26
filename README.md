@@ -2,13 +2,13 @@
 
 Welcome!
 
----------------------------LAUNCHING WEBAPP------------------------<br />
+---------------------------------------------------------LAUNCHING WEBAPP------------------------------------------------------------<br />
 After running "python manage.py runserver", access our website at (http://127.0.0.1:8000/myapp/).
 
 The purpose of this webapp is to provide useful information about certain community area to those who are wondering which community area to live in Chicago.<br />
 
 After enjoying the top page, proceed to "Community Area Fact Checker". When you choose a community area, you will find:<br />
-  • The table of criminal indiator (crimes per 1,000 population in 2015) <br />
+  + • The table of criminal indiator (crimes per 1,000 population in 2015) <br />
     with the community area, Chicago overall, and the rank of the community area in each crime type.<br />
   • Homicide map in 2015<br />
     You will be able to figure out which area is dangerous. To ensure fast and comfortable access speed, we only provide the data pertaining to Homicides, but you will be able to figure out which community area is dangerous by using this crime type, the most serious crime.
@@ -18,7 +18,7 @@ After enjoying the top page, proceed to "Community Area Fact Checker". When you 
     You will be able to compare the poverty indicator across community areas by using "% households below poverty". The bars of the community area you choose and Chicago will be highlighted.
 
 
---------------------------------SOURCES---------------------------<br />
+--------------------------------------------------------------SOURCES----------------------------------------------------------------<br />
 We used two sources from the City of Chicago:<br />
 1) "Crime Data 2001-"<br />
      City of Chicago Data Portal<br /> (https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2/data)<br />
@@ -29,7 +29,7 @@ We used two sources from the City of Chicago:<br />
 3) "Chicago Community Areas by Population" <br />
      Social Impact Research Center-A Heartland Alliance Program (http://www.ilpovertyreport.org/sites/default/files/uploads/Chicago%20Community%20Area%20Indicators,%202000-2012_140321.pdf)<br />
 
-----------------Clearing/Reducing Process of Data-------------------<br />
+-------------------------------------------------Clearing/Reducing Process of Data----------------------------------------------------<br />
 You can find the script in finalproject-Ernesto-Juan-Hajime/static/dataclean.py.<br />
 <br />
 Chicago Crime Data was the most difficult one to process since it was the very
@@ -49,10 +49,17 @@ On the other hand, both SelectedIndicators.csv and the Public Health Statistics 
     • Cleaned datatype (e.g. "community area number" was somehow converted to floats.)<br />
 <br />
 And finally, I concated these two dataframes, rounded up to 2nd decimal place, and exported the dataframe to a csv file. I succeeded in reducing the total file size from about 1.5GB to 15KB.
-
-
-
---------------------------------(starting up)----------------------------------<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+---------------------------------------------------------(FOR TEAM MEMBERS)------------------------------------------------------------<br />
 First thing to do:
 git clone git@github.com:hajimetada/finalproject-Ernesto-Juan-Hajime.git
 
