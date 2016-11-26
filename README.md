@@ -19,6 +19,7 @@ After enjoying the top page, proceed to "Community Area Fact Checker". When you 
 <br />
 <br />
 <br />
+
 ---------------------------------------------------SOURCES-----------------------------------------------------<br />
 We used two sources from the City of Chicago:<br />
 1) "Crime Data 2001-"<br />
