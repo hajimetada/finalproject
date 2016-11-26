@@ -8,13 +8,13 @@ After running "python manage.py runserver", access our website at (http://127.0.
 The purpose of this webapp is to provide useful information about certain community area to those who are wondering which community area to live in Chicago.<br />
 
 After enjoying the top page, proceed to "Community Area Fact Checker". When you choose a community area, you will find:<br />
-  + • The table of criminal indiator (crimes per 1,000 population in 2015) <br />
+  + The table of criminal indiator (crimes per 1,000 population in 2015) <br />
     with the community area, Chicago overall, and the rank of the community area in each crime type.<br />
-  • Homicide map in 2015<br />
+  + Homicide map in 2015<br />
     You will be able to figure out which area is dangerous. To ensure fast and comfortable access speed, we only provide the data pertaining to Homicides, but you will be able to figure out which community area is dangerous by using this crime type, the most serious crime.
-  • The bar graph of educational indicator<br />
+  + The bar graph of educational indicator<br />
     You will be able to compare the educational situation across community areas by using "% aged 25+ without high school diploma". The bars of the community area you choose and Chicago will be highlighted.
-  • The bar graph of poverty indicator<br />
+  + The bar graph of poverty indicator<br />
     You will be able to compare the poverty indicator across community areas by using "% households below poverty". The bars of the community area you choose and Chicago will be highlighted.
 <br />
 <br />
