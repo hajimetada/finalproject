@@ -39,13 +39,16 @@ You can find the script in finalproject-Ernesto-Juan-Hajime/static/dataclean.py.
 <br />
 Chicago Crime Data was the most difficult one to process since it was the very
 primitive raw data which has each individual case. I did the following:<br />
-    • Read the csv file into pd.dataframe<br />
-    • Extracted the columns I need for this Project<br />
-    • Extracted the data for 2015<br />
-    • Dropped rows with missing values <br />
-    • For each community area, grouped by crime types and counted the incidents<br />
-    • Converted the data from "number of crimes" into "number of crimes per 1,000 residents" by using the data of community area population, so as to allow for comparison with other community areas<br />
-    • Concat all the dataframe based on each community area<br />
+  + Read the csv file into pd.dataframe<br />
+  + Extracted the columns I need for this Project<br />
+  + Extracted the data of 2015<br />
+  + Dropped rows with missing values <br />
+  + For each community area, grouped by crime types and counted the incidents<br />
+  + Converted the data from "number of crimes" into "number of crimes per 1,000 residents" by using the data of community area population, so as to allow for comparison with other community areas<br />
+  + Concat all the dataframe based on each community area<br />
+  
+For the homicide map purpose, I created a separate csv file which only contain homicide data in 2015 with almost the same process as above.
+
 <br />
 On the other hand, both SelectedIndicators.csv and the Public Health Statistics were already nicely processed. The information is grouped by community areas and has % of various indicators. What I did is:<br />
     • Read the csv file into pd.dataframe<br />
