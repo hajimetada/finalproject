@@ -22,17 +22,18 @@ After enjoying the top page, proceed to "Community Area Fact Checker". When you 
 
 ---------------------------------------------------SOURCES-----------------------------------------------------<br />
 We used two sources from the City of Chicago:<br />
-1) "Crime Data 2001-"<br />
+  + "Crime Data 2001-"<br />
      City of Chicago Data Portal<br /> (https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2/data)<br />
 
-2) "Census Data - Selected socioeconomic indicators in Chicago, 2008 – 2012" <br />
+  +  "Census Data - Selected socioeconomic indicators in Chicago, 2008 – 2012" <br />
      City of Chicago Data Portal (https://data.cityofchicago.org/Health-Human-Services/Census-Data-Selected-socioeconomic-indicators-in-C/kn9c-c2s2)<br />
 
-3) "Chicago Community Areas by Population" <br />
+  + "Chicago Community Areas by Population" <br />
      Social Impact Research Center-A Heartland Alliance Program (http://www.ilpovertyreport.org/sites/default/files/uploads/Chicago%20Community%20Area%20Indicators,%202000-2012_140321.pdf)<br />
 <br />
 <br />
 <br />
+
 --------------------------------------Clearing/Reducing Process of Data-----------------------------------------<br />
 You can find the script in finalproject-Ernesto-Juan-Hajime/static/dataclean.py.<br />
 <br />
