@@ -6,15 +6,15 @@
 
 {% block content %}
   {% if communityarea %}
-      Choose your community area!
+        <h1>Choose your community area!</h1>
   {% endif %}
   {% if  not communityarea %}
-        Here is the some useful information you might need!
+        <h1>Here is some useful information you might need!</h1>
       <p>
         Want to know about another community area? <a href="http://127.0.0.1:8000/myapp/form/">Search again.</a>
       <p>
         <h4>Criminal Indicator (Crimes per 1,000 Population in 2015)</h4>
-        {{table | safe}}
+        {{crimetable | safe}}
       <p>
         <h4>Homicide Map 2015</h4>
         {% include "03homicidemap.html" %}

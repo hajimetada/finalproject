@@ -4,18 +4,16 @@
 
 
 import pandas as pd
-# This file is from City of Chicago Data Portal.
-df_crime = pd.read_csv("Crimes_-_2001_to_present.csv")
-# Extract a few variables that are necessary to this webapp.
-df_crime = df_crime[["Primary Type", "Community Area", "Year"]]
-# Extract the data of 2015. 2015 is the latest data which is complete (2016 is still ongoing),
+# Read the csv file into df, using certain varibables.
+df_crime = pd.read_csv("Crimes_-_2001_to_present.csv", usecols = ["Primary Type", "Community Area", "Year"])
+# Extract the data of 2015 (2015 is the latest data which is complete),
 # and drop rows with missing values.
 df_crime = df_crime[df_crime["Year"]==2015].dropna()
 # Drop rows if "Primary Type" is "NON-CRIMINAL" or "NON - CRIMINAL",
 # since it's negligible information.
-mask1 = df_crime["Primary Type"]=="NON-CRIMINAL"
-mask2 = df_crime["Primary Type"]=="NON - CRIMINAL"
-df_crime = df_crime[~mask1][~mask2]
+mask = df_crime["Primary Type"]=="NON-CRIMINAL"
+mask &= df_crime["Primary Type"]=="NON - CRIMINAL"
+df_crime = df_crime[mask]
 # Convert floats to integers.
 df_crime = df_crime.astype({"Primary Type":str, "Community Area":int, "Year":int})
 # Group by crime types ("Primary Type"), count the number of "Year" in each crime type.
@@ -41,7 +39,7 @@ for x in range(77):
     # Concat a community area dataframe with the Chicago dataframe, and fill the
     # box with "NA" with the value 0.
     df_crimerate_chicago = pd.concat([df_crimerate_chicago, df_crimerate_communityarea], axis=1).fillna(value=0)
-# Here, all the columns are named "Year".
+    # Here, all the columns are named "Year".
 
 # Rename the column names from "Year" to the number which corresponds with the order
 # of community area numbers, so that I can sort them. I need to bring the first
@@ -62,10 +60,11 @@ df_crimerate_chicago = df_crimerate_chicago.T
 
 # Now the third file which contains some useful indicators. In thie file,
 # the data was already "groupedby" by community areas.
-df_indicators = pd.read_csv("SelectedIndicators.csv")
-# Extract a few variables I need for this webapp. Fill the "NA"s with "0".
-df_indicators = df_indicators[["Community Area Number", "COMMUNITY AREA NAME", \
-    "PERCENT HOUSEHOLDS BELOW POVERTY", "PERCENT AGED 25+ WITHOUT HIGH SCHOOL DIPLOMA"]].fillna(value=0)
+# Read the csv file with certain columns, and fill the "NA"s with "0".
+df_indicators = pd.read_csv("SelectedIndicators.csv", \
+    usecols = ["Community Area Number", "COMMUNITY AREA NAME", \
+               "PERCENT HOUSEHOLDS BELOW POVERTY", \
+               "PERCENT AGED 25+ WITHOUT HIGH SCHOOL DIPLOMA"]).fillna(value=0)
 # Convert the "Community Area Number"s from float to integer. Others will not be changed.
 df_indicators = df_indicators.astype({"Community Area Number":int, "COMMUNITY AREA NAME":str, \
     "PERCENT HOUSEHOLDS BELOW POVERTY":float, "PERCENT AGED 25+ WITHOUT HIGH SCHOOL DIPLOMA":float})

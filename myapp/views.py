@@ -39,6 +39,19 @@ def portal(request, communityarea):
     # into the template. However, somehow I was not able obtain a table as a
     # variavleto from another function, so I will generate a table in this function.
 
+    params = {"crimetable": crimetable(request, communityarea),
+              "crimemap": reverse_lazy('myapp:crimemap', \
+                            kwargs={'communityarea': communityarea}),
+              "graph_educ": reverse_lazy('myapp:graph_educ',\
+                            kwargs={'communityarea': communityarea}),
+              "graph_poverty": reverse_lazy('myapp:graph_poverty',\
+                            kwargs={'communityarea': communityarea}),
+             }
+
+    return render(request, '02CommunityChecker.html', params)
+
+
+def crimetable(request, communityarea):
     # Generate a table with all the crime information about the community area and
     # Chicago overall, and the rank of the community by crime type.
     filename = join(settings.STATIC_ROOT, "processed_data.csv")
@@ -67,20 +80,9 @@ def portal(request, communityarea):
         df_result.set_value(str(x), "Rank(Higher=Safer)/77", a)
     # Rename the columns.
     df_result = df_result.rename(columns={int(communityarea):COMMUNITYAREA_DICT[communityarea], 0:"CHICAGO"})
-    # Create a table.
-    table = df_result.to_html(float_format = "%.3f", classes = "table table-striped", index_names = True, index = True).replace('style="text-align: right;"', "")
+    # Create a table as a string.
+    return df_result.to_html(float_format = "%.3f", classes = "table table-striped", index_names = True, index = True).replace('style="text-align: right;"', "")
 
-
-    params = {"table": table,
-              "crimemap": reverse_lazy('myapp:crimemap', \
-                                kwargs={'communityarea': communityarea}),
-              "graph_educ": reverse_lazy('myapp:graph_educ',\
-                                kwargs={'communityarea': communityarea}),
-              "graph_poverty": reverse_lazy('myapp:graph_poverty',\
-                                kwargs={'communityarea': communityarea}),
-    }
-
-    return render(request, '02CommunityChecker.html', params)
 
 
 
@@ -132,35 +134,3 @@ def graph_poverty(request, communityarea):
    fig.savefig(figfile, format="png", bbox_inches='tight')
    figfile.seek(0)
    return HttpResponse(figfile.read(), content_type="image/png")
-
-
-
-# Generate a map with some crime information about the community area.
-import geopandas as gpd
-def crimemap(request, commynityarea):
-   commu_df = gpd.read_file("community_areas.geojson")
-
-   from shapely.geometry import Point
-   crime_df = pd.read_csv("first_degree_murders.csv", usecols = [19, 20])
-   crime_df.dropna(inplace = True)
-   geometry = [Point(xy) for xy in zip(crime_df.Longitude, crime_df.Latitude)]
-
-   crime_coords = gpd.GeoDataFrame(crime_df, crs = commu_df.crs, geometry=geometry)
-
-   located_crimes = gpd.tools.sjoin(crime_coords, commu_df, how = 'left', op = 'within')
-
-   located_crimes.rename(columns = {"index_right" : "Murders"}, inplace = True)
-   murder_area_count = located_crimes.groupby("community").count()[["Murders"]]
-
-   mapped_murders = pd.merge(commu_df, murder_area_count, how = "inner", left_on = "community", right_index = True)
-
-   located_crimes.rename(columns = {"community" : "communityarea"}, inplace = True)
-   commu_df.rename(columns = {"community" : "communityarea"}, inplace = True)
-
-   community_crimes = located_crimes[located_crimes['communityarea']== communityarea]
-   community_boundaries = commu_df[commu_df['communityarea']== communityarea]
-
-   base = community_boundaries.plot(color = "white")
-   community_crimes.plot(ax = base)
-
-   return HttpResponse(content_type="image/png")
