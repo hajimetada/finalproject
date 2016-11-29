@@ -4,10 +4,8 @@
 
 
 import pandas as pd
-# Read the csv file into dataframe.
-df_crime = pd.read_csv("Crimes_-_2001_to_present.csv")
-# Extract variables only necessary to this webapp.
-df_crime = df_crime[["Primary Type", "Community Area", "Year"]]
+# Read the csv file into dataframe with selected variables.
+df_crime = pd.read_csv("Crimes_-_2001_to_present.csv", usecols = ["Primary Type", "Community Area", "Year"])
 # Extract the data of 2015 (2015 is the latest data which is complete),
 # and drop rows with missing values.
 df_crime = df_crime[df_crime["Year"]==2015].dropna()
