@@ -3,7 +3,8 @@
 Welcome!
 
 ----------------------------------------------LAUNCHING WEBAPP-------------------------------------------------<br />
-After running "python manage.py runserver", access our website at (http://127.0.0.1:8000/myapp/).
+Access to our webapp uploaded on the free server (pythonanywhere)! 
+http://hajime.pythonanywhere.com/myapp/
 
 The purpose of this webapp is to provide useful information about certain community area to those who are wondering which community area to live in Chicago.<br />
 
