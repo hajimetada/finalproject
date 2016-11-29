@@ -50,9 +50,9 @@ primitive raw data which has each individual case. I did the following:<br />
   + (You can find the scripts ("dataclean.py") at "finalproject-Ernesto-Juan-Hajime/static")
 
 For the homicide map purpose: <br />
-  + Cleaned the data with the scripts("01dataclean_for_map.py"), and produced "02map.csv"br />
-  + Process "02map.csv", create a html file with the scripts("03createmap.py")br />
-  + (You can find the scripts at "finalproject-Ernesto-Juan-Hajime/static/for_map") br />
+  + Cleaned the data with the scripts("01dataclean_for_map.py"), and produced "02map.csv"<br />
+  + Process "02map.csv", create a html file with the scripts("03createmap.py")<br />
+  + (You can find the scripts at "finalproject-Ernesto-Juan-Hajime/static/for_map") <br />
 
 <br />
 On the other hand, the census data were already nicely processed. The information is grouped by community areas and has % of various indicators. What I did is:<br />
