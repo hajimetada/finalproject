@@ -5,9 +5,8 @@
 
 import pandas as pd
 # This file is from City of Chicago Data Portal. Read the csv file into a dataframe
-# with certain variables.
-df_crime = pd.read_csv("Crimes_-_2001_to_present.csv", usecols = ["Primary Type",\
-                       "Community Area", "Year", "Latitude", "Longitude"])
+# with selected variables.
+df_crime = pd.read_csv("Crimes_-_2001_to_present.csv", usecols = ["Primary Type", "Community Area", "Year", "Latitude", "Longitude"])
 # Extract the data of 2015. 2015 is the latest data which is complete (2016 is still ongoing),
 # and drop rows with missing values.
 df_crime = df_crime[df_crime["Year"]==2015].dropna()
@@ -19,4 +18,4 @@ df_crime = df_crime.astype({"Primary Type":str, "Community Area":int, "Year":int
 
 
 # Output to the csv file named "processed_data.csv".
-df_crime.to_csv("homicidedata_for_map.csv")
+df_crime.to_csv("02map.csv")
