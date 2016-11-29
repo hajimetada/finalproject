@@ -54,11 +54,10 @@ For the homicide map purpose: <br />
   + Process "02map.csv", create a html file with the scripts("03createmap.py")<br />
   + (You can find the scripts at "finalproject-Ernesto-Juan-Hajime/static/for_map") <br />
 
-<br />
 On the other hand, the census data were already nicely processed. The information is grouped by community areas and has % of various indicators. What I did is:<br />
   + Read the csv file into pd.dataframe<br />
   + Extracted the columns I need for this project <br />
-  + Filled the empty cell ("NA") with zero<br />
+  + Filled the empty cell ("NA") with "0"<br />
   + Cleaned datatype (e.g. "community area number" was somehow converted to floats.)<br />
 <br />
 
