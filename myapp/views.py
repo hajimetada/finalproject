@@ -6,13 +6,14 @@ from django.core.urlresolvers import reverse_lazy
 def home(request):
     return render(request, '01Chicago.html')
 
+
+
 from .forms import InputForm
 from .models import COMMUNITYAREA_DICT
 # Provide a form to select a community area and redirect to the "portal", which
 # collect outputs from other functions, convert them into variabvles, and send
 # them to "02CommunityChecker.html".
 def form(request):
-
     communityarea = request.POST.get('communityarea', '')
     # COMMUNITYAREA_DICT["F"] is empty. So users are firstly led to the final
     # line of thie function and provided the pull-down options first.
@@ -85,7 +86,6 @@ def crimetable(request, communityarea):
 
 
 
-
 # Generate a graph of educational indicator, which is % aged 25+ without
 # highschool diploma.
 import matplotlib.pyplot as plt
@@ -110,6 +110,8 @@ def graph_educ(request, communityarea):
    fig.savefig(figfile, format="png", bbox_inches='tight')
    figfile.seek(0)
    return HttpResponse(figfile.read(), content_type="image/png")
+
+
 
 # Generate a graph of educational indicator, which is % aged 25+ without
 # highschool diploma.
