@@ -1,7 +1,5 @@
 {% extends "00base.html" %}
 
-
-
 {% block class2 %}class="active"{% endblock %}
 
 {% block content %}
@@ -9,30 +7,29 @@
         <h1>Choose your community area!</h1>
   {% endif %}
   {% if  not communityarea %}
-        <h1>Here is some useful information you might need!</h1>
+      <h1>Here is some useful information you might need!</h1>
       <p>
-        Want to know about another community area? <a href="http://hajime.pythonanywhere.com/myapp/form/">Search again.</a>
+      Want to know about another community area? <a href="http://hajime.pythonanywhere.com/myapp/form/">Search again.</a>
       <p>
-        <h4>Criminal Indicator (Number of crimes per 1,000 Population in 2015)</h4>
+      <h4>Criminal Indicator (Number of crimes per 1,000 Population in 2015)</h4>
         {{crimetable | safe}}
       <p>
-        <h4>Homicide Map 2015</h4>
+      <h4>Homicide Map 2015</h4>
         {% include "03homicidemap.html" %}
       <p>
-        <h4>Educational Indicator (% Aged 25+ without Highschool Diploma 2008-2012)</h4>
+      <h4>Educational Indicator (% Aged 25+ without Highschool Diploma 2008-2012)</h4>
         <img src={{graph_educ}}></img>
       <p>
-        <h4>Poverty Indicator (% Households below Poverty 2008-2012)</h4>
+      <h4>Poverty Indicator (% Households below Poverty 2008-2012)</h4>
         <img src={{graph_poverty}}></img>
   {% endif %}
 
   <form action="{{ form_action }}"
         method="{{ form_method }}">
-  {% if form_method == "post" %}
+    {% if form_method == "post" %}
        {% csrf_token %}
-  {% endif %}
-
-  {{ form.as_p }}
+    {% endif %}
+    {{ form.as_p }}
   </form>
 
   {% if communityarea %}
