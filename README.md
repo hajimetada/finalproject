@@ -61,7 +61,7 @@ On the other hand, the census data were already nicely processed. The informatio
   + Cleaned datatype (e.g. "community area number" was somehow converted to floats.)<br />
 <br />
 
-And finally, I concated these two dataframes, rounded up to 2nd decimal place, and exported the dataframe to a csv file. I succeeded in reducing the total file size from about 1.5GB to 15KB.
+And finally, I "concat"ed these two dataframes, rounded up to 2nd decimal place, and exported the dataframe to a csv file. I succeeded in reducing the total file size from about 1.5GB to 15KB.
 <br />
 <br />
 <br />
