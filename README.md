@@ -11,7 +11,7 @@ The purpose of this webapp is to provide useful information about certain commun
 After enjoying the top page, proceed to "Community Area Fact Checker". When you choose a community area, you will find:<br />
   + The table of criminal indiator (crimes per 1,000 population in 2015) <br />
     The data of the community area, Chicago overall, and the rank of the community area in each crime type.<br />
-  + Homicide map from 2013 to 2015<br />
+  + Homicide map from in 2015<br />
     You will be able to figure out which area is dangerous. To ensure fast and comfortable access speed, we only provide the data pertaining to Homicides, but you will be able to figure out which community area is dangerous by using this crime type, the most serious crime. You will have to look for a community area visually.
   + The bar graph of educational indicator (% aged 25+ without high school diploma)<br />
     You will be able to compare the educational situation across community areas by using "% aged 25+ without high school diploma". The bars of the community area you choose and Chicago will be highlighted.
