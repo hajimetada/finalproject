@@ -2,7 +2,7 @@
 
 Welcome!
 
-----------------------------------------------LAUNCHING WEBAPP-------------------------------------------------<br />
+## LAUNCHING WEBAPP-------------------------------------------------<br />
 Access to our webapp uploaded on the free server (pythonanywhere)! 
 http://hajime.pythonanywhere.com/myapp/ <br />
 (Or of course you can run the django files. Just enter "python manage.py runserver" in your terminal and access http://127.0.0.1:8000/myapp/)
