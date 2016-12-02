@@ -4,25 +4,27 @@ Welcome!
 
 ----------------------------------------------LAUNCHING WEBAPP-------------------------------------------------<br />
 Access to our webapp uploaded on the free server (pythonanywhere)! 
-http://hajime.pythonanywhere.com/myapp/
+http://hajime.pythonanywhere.com/myapp/ <br />
+(Or of course you can run the django files. Just enter "python manage.py runserver" in your terminal and access http://127.0.0.1:8000/myapp/)
+
 
 The purpose of this webapp is to provide useful information about certain community area to those who are wondering which community area to live in Chicago.<br />
 
-After enjoying the top page, proceed to "Community Area Fact Checker". When you choose a community area, you will find:<br />
+After enjoying the top page, proceed to "Community Area Fact Checker". When you choose a community area, you will find the following four outputs:<br />
   + The table of criminal indiator (crimes per 1,000 population in 2015) <br />
     The data of the community area, Chicago overall, and the rank of the community area in each crime type.<br />
-  + Homicide map from in 2015<br />
-    You will be able to figure out which area is dangerous. To ensure fast and comfortable access speed, we only provide the data pertaining to Homicides, but you will be able to figure out which community area is dangerous by using this crime type, the most serious crime. You will have to look for a community area visually.
+  + Homicide map in 2015<br />
+    To ensure fast and comfortable access speed, we only provide the data pertaining to Homicides, but you will be able to grasp the idea about which community area is dangerous by using this most typical and serious crime type. You will have to look for a community area manually.
   + The bar graph of educational indicator (% aged 25+ without high school diploma)<br />
     You will be able to compare the educational situation across community areas by using "% aged 25+ without high school diploma". The bars of the community area you choose and Chicago will be highlighted.
   + The bar graph of poverty indicator (% households below poverty)<br />
     You will be able to compare the poverty indicator across community areas by using "% households below poverty". The bars of the community area you choose and Chicago will be highlighted.
 <br />
-<br />
-<br />
+If you want to know about other community areas, click "Search again" link located right above the crime table.<br />
+If you only know "neighborhood" instead of "community area", click "Look for" right below the pulldown menu.<br />
 
 ---------------------------------------------------SOURCES-----------------------------------------------------<br />
-We used two sources from the City of Chicago:<br />
+We used two sources from the City of Chicago and one from certain research center:<br />
   + "Crime Data 2001-"<br />
      City of Chicago Data Portal<br /> (https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2/data)<br />
 
