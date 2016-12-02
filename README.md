@@ -1,14 +1,11 @@
 # finalproject
 
-Welcome!
+Welcome! The purpose of this webapp is to provide useful information about certain community area to those who are wondering which community area to live in Chicago.<br />
 
 ## LAUNCHING WEBAPP
 Access to our webapp uploaded on the free server (pythonanywhere)! 
 http://hajime.pythonanywhere.com/myapp/ <br />
 (Or of course you can run the django files. Just enter "python manage.py runserver" in your terminal and access http://127.0.0.1:8000/myapp/)
-
-
-The purpose of this webapp is to provide useful information about certain community area to those who are wondering which community area to live in Chicago.<br />
 
 After enjoying the top page, proceed to "Community Area Fact Checker". When you choose a community area, you will find the following four outputs:<br />
   + The table of criminal indiator (crimes per 1,000 population in 2015) <br />
