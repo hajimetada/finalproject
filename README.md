@@ -15,9 +15,9 @@ After enjoying the top page, proceed to "Community Area Fact Checker". When you 
     The data of the community area, Chicago overall, and the rank of the community area in each crime type.<br />
   + Homicide map in 2015<br />
     To ensure fast and comfortable access speed, we only provide the data pertaining to Homicides, but you will be able to grasp the idea about which community area is dangerous by using this most typical and serious crime type. You will have to look for a community area manually.
-  + The bar graph of educational indicator (% aged 25+ without high school diploma)<br />
+  + The bar graph of educational indicator 2008-2012 (% aged 25+ without high school diploma)<br />
     You will be able to compare the educational situation across community areas by using "% aged 25+ without high school diploma". The bars of the community area you choose and Chicago will be highlighted.
-  + The bar graph of poverty indicator (% households below poverty)<br />
+  + The bar graph of poverty indicator 2008-2012 (% households below poverty)<br />
     You will be able to compare the poverty indicator across community areas by using "% households below poverty". The bars of the community area you choose and Chicago will be highlighted.<br />
 
 If you only know "neighborhood" instead of "community area", click "Look for" right below the pulldown menu and look for it.<br />
