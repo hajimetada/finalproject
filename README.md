@@ -23,6 +23,8 @@ After enjoying the top page, proceed to "Community Area Fact Checker". When you 
 If you only know "neighborhood" instead of "community area", click "Look for" right below the pulldown menu and look for it.<br />
 
 If you want to know about other community areas, click "Search again" link located right above the crime table.<br />
+<br />
+<br />
 
 ---------------------------------------------------SOURCES-----------------------------------------------------<br />
 We used two sources from the City of Chicago and one from certain research center:<br />
@@ -34,7 +36,6 @@ We used two sources from the City of Chicago and one from certain research cente
 
   +  "Census Data - Selected socioeconomic indicators in Chicago, 2008 – 2012" <br />
      City of Chicago Data Portal (https://data.cityofchicago.org/Health-Human-Services/Census-Data-Selected-socioeconomic-indicators-in-C/kn9c-c2s2)<br />
-<br />
 <br />
 <br />
 
