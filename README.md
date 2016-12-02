@@ -2,7 +2,7 @@
 
 Welcome!
 
-## LAUNCHING WEBAPP-------------------------------------------------<br />
+## LAUNCHING WEBAPP
 Access to our webapp uploaded on the free server (pythonanywhere)! 
 http://hajime.pythonanywhere.com/myapp/ <br />
 (Or of course you can run the django files. Just enter "python manage.py runserver" in your terminal and access http://127.0.0.1:8000/myapp/)
@@ -26,7 +26,7 @@ If you want to know about other community areas, click "Search again" link locat
 <br />
 <br />
 
----------------------------------------------------SOURCES-----------------------------------------------------<br />
+## SOURCES
 We used two sources from the City of Chicago and one from certain research center:<br />
   + "Crime Data 2001-"<br />
      City of Chicago Data Portal<br /> (https://data.cityofchicago.org/Public-Safety/Crimes-2001-to-present/ijzp-q8t2/data)<br />
@@ -39,7 +39,7 @@ We used two sources from the City of Chicago and one from certain research cente
 <br />
 <br />
 
---------------------------------------Clearing/Reducing Process of Data-----------------------------------------<br />
+## Clearing/Reducing Process of Data
 You can find the script in finalproject-Ernesto-Juan-Hajime/static/dataclean.py.<br />
 <br />
 Chicago Crime Data was the most difficult one to process since it was the very
