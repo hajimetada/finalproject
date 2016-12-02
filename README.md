@@ -18,10 +18,10 @@ After enjoying the top page, proceed to "Community Area Fact Checker". When you 
   + The bar graph of educational indicator (% aged 25+ without high school diploma)<br />
     You will be able to compare the educational situation across community areas by using "% aged 25+ without high school diploma". The bars of the community area you choose and Chicago will be highlighted.
   + The bar graph of poverty indicator (% households below poverty)<br />
-    You will be able to compare the poverty indicator across community areas by using "% households below poverty". The bars of the community area you choose and Chicago will be highlighted.
-<br />
+    You will be able to compare the poverty indicator across community areas by using "% households below poverty". The bars of the community area you choose and Chicago will be highlighted.<br />
+
 If you want to know about other community areas, click "Search again" link located right above the crime table.<br />
-If you only know "neighborhood" instead of "community area", click "Look for" right below the pulldown menu.<br />
+If you only know "neighborhood" instead of "community area", click "Look for" right below the pulldown menu and look for it.<br />
 
 ---------------------------------------------------SOURCES-----------------------------------------------------<br />
 We used two sources from the City of Chicago and one from certain research center:<br />
